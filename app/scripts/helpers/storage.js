@@ -36,30 +36,7 @@ define([
         check: function() {
             this.promise = $.Deferred();
 
-            // Test if indexeddb is disabled
-            if (Modernizr.indexeddb) {
-                this.testIndexedDB();
-            }
-            // IndexedDB is not available but WebSQL is
-            else if (Modernizr.websqldatabase) {
-                console.warn('IndexedDB is not available, switched to WebSQL');
-
-                this.storage = 'websql';
-                window.shimIndexedDB.__useShim(true);
-                this.promise.resolve();
-            }
-            // Use localstorage if indexeddb is not available
-            else if (Modernizr.localstorage) {
-                this.useLocalStorage();
-            }
-            // It doesn't support neither indexeddb nor websql nor localstorage
-            else {
-                console.error('Browser doesn\'t have web storage support');
-
-                this.storage = null;
-                channel.vent.trigger('storage:error');
-                this.promise.reject();
-            }
+            this.useLocalStorage();
 
             return this.promise;
         },

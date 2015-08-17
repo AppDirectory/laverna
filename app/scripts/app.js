@@ -77,6 +77,30 @@ define([
     });
 
     App.on('before:start', function() {
+        $.ajax({
+            type: 'get',
+            url: '/var',
+            success: function (data) {
+                if (data.trim().length === 0) {
+                    return;
+                }
+                data.split('\n').forEach(function (file) {
+                    if (file.length === 0) {
+                        return;
+                    }
+                    $.ajax({
+                        type: 'get',
+                        url: '/var/' + file,
+                        success: function (data) {
+                            window.localStorage.setItem(decodeURIComponent(file), JSON.parse(data));
+                        }
+                    });
+                });
+            },
+            error: function (err) {
+                console.log('Unexpected error loading data', err);
+            }
+        });
         App.settings = App.request('configs');
         App.constants = App.request('constants');
         App.vent.trigger('app:init');
