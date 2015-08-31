@@ -101,9 +101,9 @@ requirejs.config({
         indexedDB: {
             deps: ['underscore', 'backbone']
         },
-        'IndexedDBShim': {
-            exports: 'shimIndexedDB'
-        },
+        // 'IndexedDBShim': {
+        //     exports: 'shimIndexedDB'
+        // },
         dropbox: {
             exports: 'Dropbox'
         },

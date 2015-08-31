@@ -4,7 +4,6 @@ define([
     'jquery',
     'backbone',
     'marionette',
-    'IndexedDBShim',
     'localStorage'
 ], function(_, $, Backbone) {
     'use strict';
