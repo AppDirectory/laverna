@@ -78,6 +78,7 @@ define([
 
     App.on('before:start', function() {
         $.ajax({
+            async: false,
             type: 'get',
             url: '/var',
             success: function (data) {
@@ -89,6 +90,7 @@ define([
                         return;
                     }
                     $.ajax({
+                        async: false,
                         type: 'get',
                         url: '/var/' + file,
                         success: function (data) {
