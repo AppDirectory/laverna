@@ -85,19 +85,11 @@ define([
                 if (data.trim().length === 0) {
                     return;
                 }
-                data.split('\n').forEach(function (file) {
-                    if (file.length === 0) {
-                        return;
-                    }
-                    $.ajax({
-                        async: false,
-                        type: 'get',
-                        url: '/var/' + file,
-                        success: function (data) {
-                            window.localStorage.setItem(decodeURIComponent(file), JSON.parse(data));
-                        }
-                    });
-                });
+                data = JSON.parse(data);
+                for (var key in data) {
+                    var val = data[key];
+                    window.localStorage.setItem(decodeURIComponent(key), val);
+                }
             },
             error: function (err) {
                 console.log('Unexpected error loading data', err);
